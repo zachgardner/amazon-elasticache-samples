@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% import "macros.html" as macros %}
+
+{% block page_title %}Feeds{% endblock %}
+{% block main_title %}Feeds{% endblock %}
+
+
+
+{% block body %}
+
+<div id="update-entries">
+<ul class="controls">
+
+{{ macros.radio_links('sort', [
+    ('title', none),
+    ('added', none),
+], 'title', '.feeds', 'sort by') }}
+
+</ul>
+</div>
+
+
+{% for feed in feeds %}
+<div id="feed-{{ loop.index }}" class="feed">
+
+<h2><a href="{{ url_for('.entries', feed=feed.url) }}">
+{{- macros.feed_title(feed) -}}
+</a></h2>
+
+<ul class="controls">
+
+<li>
+    {% if feed.link %}<a href="{{ feed.link }}">site</a>{% else %}no site{% endif %}
+    <a href="{{ feed.url }}">feed</a>
+
+{% set next = url_for('.feeds', **request.args) + '#feed-' + ((loop.index if not loop.last else loop.index - 1) | string) %}
+{% set context = {'feed-url': feed.url, 'target': feed.url} %}
+
+{{ macros.confirm_button('.form_api', 'delete-feed', 'delete feed', loop.index, leave_disabled=true, next=next, context=context) }}
+
+{{ macros.text_input_button('.form_api', 'update-feed-title', 'update feed title', 'feed-title', 'feed title', leave_disabled=true, next=next, context=context) }}
+
+<li>
+<a href="{{ url_for('.metadata', feed=feed.url) }}">update metadata</a>
+
+{% for message in get_flashed_messages_by_prefix(
+    ('delete-feed', feed.url),
+    ('update-feed-title', feed.url),
+) %}
+<li class="error">{{ message }}
+{% endfor %}
+
+</ul>
+
+
+</div>
+{% endfor %}
+
+{% endblock %}

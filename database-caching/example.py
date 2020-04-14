@@ -3,7 +3,9 @@ import json
 
 import redis
 import pymysql
-
+from rediscluster import RedisCluster
+import time
+from reader import feed
 
 class DB:
     def __init__(self, **params):
@@ -36,18 +38,20 @@ DB_PASS = os.environ.get('DB_PASS')
 DB_NAME = os.environ.get('DB_NAME')
 
 # Initialize the database
-Database = DB(host=DB_HOST, user=DB_USER, password=DB_PASS, db=DB_NAME)
+Database = DB(host='ecdemo.cluster-c2cgok5lktay.us-east-1.rds.amazonaws.com', user='ecdemo', password='', db='tutorial')
 
-# Initialize the cache
-Cache = redis.Redis.from_url(REDIS_URL)
+startup_nodes = [{"host": "microclusternossl.l8t0qy.clustercfg.use1.cache.amazonaws.com", "port": "6379"}]
 
+Cache = RedisCluster( startup_nodes=startup_nodes,decode_responses=True, skip_full_coverage_check=True )
 
-def fetch(sql):
+def fetch(sql, cache):
     """Retrieve records from the cache, or else from the database."""
-    res = Cache.get(sql)
+    if cache:
+        res = Cache.get(sql)
 
-    if res:
-        return json.loads(res)
+        if res:
+            return json.loads(res)
+
 
     res = Database.query(sql)
     Cache.setex(sql, TTL, json.dumps(res))
@@ -73,7 +77,14 @@ def planet(id):
 
 
 # Display the result of some queries
-print(fetch("SELECT * FROM planet"))
-print(planet(1))
-print(planet(2))
-print(planet(3))
+tic = time.perf_counter()
+for i in range(0,1000):
+    fetch("SELECT * FROM planet", cache=True)
+# Display the result of some queries
+toc = time.perf_counter()
+print(f"Time from cache in {toc - tic:0.4f} seconds")
+tic = time.perf_counter()
+for i in range(0,1000):
+    fetch("SELECT * FROM planet", cache=False)
+toc = time.perf_counter()
+print(f"Time from sql in {toc - tic:0.4f} seconds")

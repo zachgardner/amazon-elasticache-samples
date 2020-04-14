@@ -1,0 +1,16 @@
+../../../bin/realpython,sha256=HBLnOYZMP3lM1V_a7inWr-a9L3MYmKGJMqUjRpy4CoA,287
+reader/__init__.py,sha256=GcgQIYMOlVaOSIVe2K-svWmp_H7-BYAWy_LTlDTxnRc,701
+reader/__main__.py,sha256=K-CTEt4CNus9wnwDQha8Ga_7xfsXX1AmTtAomiIWe5I,1620
+reader/__pycache__/__init__.cpython-36.pyc,,
+reader/__pycache__/__main__.cpython-36.pyc,,
+reader/__pycache__/feed.cpython-36.pyc,,
+reader/__pycache__/viewer.cpython-36.pyc,,
+reader/config.cfg,sha256=m7yDayr3BufhROgMAcwwsgVASRBia1Ds8awL1ZDLuAo,45
+reader/feed.py,sha256=cjHUZa7_ByfKGEEqmdVOCWJ6zFxdTe9dEs_vGUy31R0,1605
+reader/viewer.py,sha256=HwDQNGKuMmCHWBIrwQSb5nUkk1X-2O8y95NXQbuoz0g,514
+realpython_reader-1.0.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+realpython_reader-1.0.0.dist-info/METADATA,sha256=kHzgINHk6YnBiZj59_NhFkrOC-e4dDpDM7DsxLyBduE,3561
+realpython_reader-1.0.0.dist-info/RECORD,,
+realpython_reader-1.0.0.dist-info/WHEEL,sha256=NzFAKnL7g-U64xnS1s5e3mJnxKpOTeOtlXdFwS9yNXI,92
+realpython_reader-1.0.0.dist-info/entry_points.txt,sha256=mDtq5fbYTdTDXA-CdbL8J4uUGDm5_js9Ys2qp_8k3q4,53
+realpython_reader-1.0.0.dist-info/top_level.txt,sha256=zVRv6FulXZWKf9Gycz9vjxul5OCZ3fCq2Attdwsu7Z4,7

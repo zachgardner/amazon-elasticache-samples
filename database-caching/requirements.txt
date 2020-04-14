@@ -1,2 +1,4 @@
 PyMySQL==0.9.3
-redis==3.2.1
+redis==3.0
+redis-py-cluster
+realpython-reader
